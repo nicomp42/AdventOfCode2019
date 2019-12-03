@@ -11,7 +11,7 @@ namespace AdventOfCode
     class Program
     {
         static void Main(string[] args) {
-            Console.WriteLine("Day 03 Part 01: "); SolveDay03Part01();
+            Console.WriteLine("Day 03 Part 01: " + SolveDay03Part01());
             /*          Console.WriteLine("Day 02 Part 02: "); SolveDay02Part02(Day02Data.op);
                         Console.WriteLine("Day 02 Part 01: " + SolveDay02Part01(Day02Data.op, true));
                         Console.WriteLine("Day 01 Part 01: " + SolveDay01Part01());
@@ -73,7 +73,7 @@ namespace AdventOfCode
                     if ((p1.x == p2.x) && (p1.y == p2.y)) {
                         int dist;
                         dist = Math.Abs(p1.x - centralPort.x) + Math.Abs(p1.y - centralPort.y);
-                        if (minDist < dist) { minDist = dist; }
+                        if ((dist > 0) && minDist > dist) { minDist = dist; }
                     }
                 }
             }
