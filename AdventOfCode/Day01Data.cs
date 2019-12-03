@@ -5,6 +5,8 @@
  */
 
 
+using System.Collections.Generic;
+
 namespace AdventOfCode
 {
     class Day01Data
