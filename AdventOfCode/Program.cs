@@ -11,13 +11,43 @@ namespace AdventOfCode
     class Program
     {
         static void Main(string[] args) {
-            Console.WriteLine("Day 03 Part 01: " + SolveDay03Part01());
-            /*          Console.WriteLine("Day 02 Part 02: "); SolveDay02Part02(Day02Data.op);
-                        Console.WriteLine("Day 02 Part 01: " + SolveDay02Part01(Day02Data.op, true));
-                        Console.WriteLine("Day 01 Part 01: " + SolveDay01Part01());
-                        Console.WriteLine("Day 01 Part 02: " + SolveDay01Part02());*/
+            Console.WriteLine("Day 04 Part 01: " + SolveDay04Part01());
+            /*Console.WriteLine("Day 03 Part 01: " + SolveDay03Part01());
+              Console.WriteLine("Day 02 Part 02: "); SolveDay02Part02(Day02Data.op);
+              Console.WriteLine("Day 02 Part 01: " + SolveDay02Part01(Day02Data.op, true));
+              Console.WriteLine("Day 01 Part 01: " + SolveDay01Part01());
+              Console.WriteLine("Day 01 Part 02: " + SolveDay01Part02());*/
 
-            Console.ReadLine();
+            //            Console.ReadLine();
+        }
+        public static int SolveDay04Part01() {
+            int result = 0;
+            int start = 168630; int stop = 718098;
+            for (int i = start; i <= stop; i++)
+            {
+                if (checkDay04Part01(i)) { result++; }
+            }
+            return result;
+        }
+        public static Boolean checkDay04Part01(int num) {
+            String s = Convert.ToString(num);
+            Boolean matchFound = false, ascending = true;
+            int matchCount = 1; // c matches itself so we start with 1
+            Char prevChar = '!';
+            foreach(Char c in s) {
+                if (prevChar == c) {
+                    matchCount++;
+                } else {
+//                    if (matchCount > 1) { matchFound = true; }    // For Part 01 of the problem.
+                     if (matchCount == 2 ) { matchFound = true; }  // for Part 02 of the problem
+                    matchCount = 1;
+                }
+                if (c < prevChar) { ascending = false; }
+                prevChar = c;
+            }
+//          if (matchCount > 1) { matchFound = true; }    // For Part 01 of the problem.
+            if (matchCount == 2 ) { matchFound = true; }  // for Part 02 of the problem
+            return (ascending && matchFound);
         }
         public static int SolveDay03Part01() {
             Point centralPort = new Point(1, 1);
@@ -68,15 +98,24 @@ namespace AdventOfCode
             Console.WriteLine("Day 03 Part 01: " + w2.Count + " points in wire 02");
             Console.WriteLine("We will be processing " + (long)w1.Count * w2.Count + " points...");
             int minDist = Int32.MaxValue;
-            foreach(Point p1 in w1) {
+            int minTotalSteps = Int32.MaxValue;
+            int stepsToP1Point, stepsToP2Point;
+            stepsToP1Point = 0; stepsToP2Point = 0;
+            foreach (Point p1 in w1) {
+                stepsToP2Point = 0;
                 foreach(Point p2 in w2) {
                     if ((p1.x == p2.x) && (p1.y == p2.y)) {
+                        // We have an intersection
                         int dist;
                         dist = Math.Abs(p1.x - centralPort.x) + Math.Abs(p1.y - centralPort.y);
                         if ((dist > 0) && minDist > dist) { minDist = dist; }
+                        if ((dist > 0) && minTotalSteps > (stepsToP1Point + stepsToP2Point)) { minTotalSteps = stepsToP1Point + stepsToP2Point; }
                     }
+                    stepsToP2Point++;
                 }
+                stepsToP1Point++;
             }
+            Console.WriteLine("Day 03 Part 02: Min total steps = " + minTotalSteps);
             return minDist;
         }
 
