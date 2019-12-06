@@ -3,6 +3,22 @@
 
 namespace AdventOfCode {
     class Day06Data {
+        public static String[] day06DataX = new string[] {
+
+"COM)B",
+"B)C",
+"C)D",
+"D)E",
+"E)F",
+"B)G",
+"G)H",
+"D)I",
+"E)J",
+"J)K",
+"K)L",
+"K)YOU",
+"I)SAN"};
+
         public static String[] day06Data = new string[] {
 "MZP)PKY",
 "MZ2)51N",
