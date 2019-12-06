@@ -6,13 +6,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace AdventOfCode
-{
-    class Program
-    {
+namespace AdventOfCode {
+    class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Day 04 Part 01: " + SolveDay04Part01());
-            /*Console.WriteLine("Day 03 Part 01: " + SolveDay03Part01());
+            Day05.Solve();
+            /*Console.WriteLine("Day 04 Part 01: " + SolveDay04Part01());
+              Console.WriteLine("Day 03 Part 01: " + SolveDay03Part01());
               Console.WriteLine("Day 02 Part 02: "); SolveDay02Part02(Day02Data.op);
               Console.WriteLine("Day 02 Part 01: " + SolveDay02Part01(Day02Data.op, true));
               Console.WriteLine("Day 01 Part 01: " + SolveDay01Part01());
@@ -118,7 +117,6 @@ namespace AdventOfCode
             Console.WriteLine("Day 03 Part 02: Min total steps = " + minTotalSteps);
             return minDist;
         }
-
         public static void SolveDay02Part02(int[] op) {
             int goal = 19690720;
             for (int i = 0; i <= 99; i++) {
@@ -152,7 +150,6 @@ namespace AdventOfCode
                         break;
                 }
             }
-
             return p[0];
         }
         public static int SolveDay01Part01() {
