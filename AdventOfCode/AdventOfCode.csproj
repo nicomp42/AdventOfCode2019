@@ -52,6 +52,7 @@
     <Compile Include="Day06Data.cs" />
     <Compile Include="Day07.cs" />
     <Compile Include="Day07Data.cs" />
+    <Compile Include="Day07State.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

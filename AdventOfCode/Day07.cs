@@ -8,7 +8,7 @@ namespace AdventOfCode {
     class Day07 {
         public static void Solve() {
             //SolvePart01();
-            SolvePart02();
+           SolvePart02();
         }
         private static void SolvePart02() {
             int[] input;
@@ -16,24 +16,46 @@ namespace AdventOfCode {
             String inputValueForMax = "";
             long result;
             long maxResult = Int64.MinValue;
+            List<Day07State> states;
             for (int i = 56789; i <= 98765; i++) {
+                //Console.WriteLine("i=" + i);
                 String tmp; tmp = i.ToString(); int num; num = i;
                 input = new int[] { 0, 0, 0, 0, 0 };
                 for (int k = 4; k >= 0; k--) { input[k] = num - ((num / 10)* 10); num /= 10; }
                 Boolean foundAllDigits; foundAllDigits = true;
-                for (int k = 0; k < 5; k++) { if (!input.Contains(k)) { foundAllDigits = false; } }
+                for (int k = 5; k < 10; k++) { if (!input.Contains(k)) { foundAllDigits = false; } }
                 if (!foundAllDigits) { continue; }
                 //              Console.WriteLine("Processing " + Convert.ToString(input));
                 result = 0;
-                int[] p;
-                int[] realInput = new int[2]; int lastOutput = 0;
-                for (int n = 0; n < 5; n++) {
-                    p = (int[])Day07Data.day07Data.Clone();
-                    realInput[0] = input[n];
-                    realInput[1] = lastOutput;
-                    lastOutput = Convert.ToInt32(ExecuteIntCodeComputer(p, realInput)); // It only uses the first two inputs, but oh well.
+                int lastOutput = 0;
+                Boolean firstPass = true;
+                states = new List<Day07State>();
+                for (int ii = 0; ii < 5; ii++) {
+                    states.Add(new Day07State());
+                    states.ElementAt<Day07State>(ii).op = (int[])Day07Data.day07Data.Clone();
                 }
-                Console.WriteLine("result = " + result + " for inputs of " + i.ToString());
+                Boolean keepGoing; keepGoing = true;
+                while (keepGoing) {
+                    for (int n = 0; n < 5; n++) {
+                        if (firstPass) { states.ElementAt<Day07State>(n).input.Add(input[n]); } // Is it appended or dos it always go in the second position?
+                        states.ElementAt<Day07State>(n).input.Add(lastOutput);
+                        try {
+                            lastOutput = Convert.ToInt32(states.ElementAt<Day07State>(n).ExecuteIntCodeComputer());
+                            if (states.ElementAt<Day07State>(n).haltFound == true) {
+                                if (n == 4) { // if we got this far we executed a code 99 in the computer on tht 5th amplifier.
+                                    keepGoing = false;
+                                } 
+                            }
+                        } catch (Exception ex) {
+                            // The computer ran out of input and threw an exception.
+//                            Console.WriteLine("Out of input");
+                            keepGoing = true;
+                        }
+                    }
+                    //if (done) { break; }
+                    firstPass = false;
+                }
+                Console.WriteLine("last output = " + lastOutput + " for inputs of " + i.ToString());
                 if (maxResult < lastOutput) { maxResult = lastOutput; inputValueForMax = i.ToString(); }
             }
             Console.WriteLine("Max result = " + maxResult + " for input of " + inputValueForMax);
