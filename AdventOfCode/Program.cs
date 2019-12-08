@@ -9,7 +9,8 @@ using System.Collections.Generic;
 namespace AdventOfCode {
     class Program {
         static void Main(string[] args) {
-            Day07.Solve();
+            Day08.Solve();
+//          Day07.Solve();
 //          Day06.Solve();
 //          Day05.Solve();
             /*Console.WriteLine("Day 04 Part 01: " + SolveDay04Part01());
